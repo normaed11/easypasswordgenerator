@@ -20,20 +20,18 @@ function generatePassword() {
   var passLength = prompt("Choose number of characters between 8 and 128")
   while (passLength > 128 || passLength < 8) {
     passLength = prompt("Choose number of characters between 8 and 128")
-
   }
   var number = confirm("Include numbers ?")
   var lowercase = confirm("Include lowercase ?")
   var uppercase = confirm("Include uppercase?")
   var symbols = confirm("Include symbols?")
-  console.log(passLength, number, lowercase, uppercase,
-    symbols)
   // creating individual arrays
   var numberArray = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
   var uppercaseArray = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
   var lowercaseArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
   var symbolsArray = ['!', '@', '#', '$', '%', '^', '&', '*']
   var passwordArray = []
+  // if statements to combine the correct arrays
   if (number) {
     passwordArray = numberArray.concat(passwordArray)
   }
@@ -46,24 +44,23 @@ function generatePassword() {
   if (symbols) {
     passwordArray = symbolsArray.concat(passwordArray)
   }
+  // putting random characters into the password variable
 
-  console.log(passwordArray)
+  var password = ""
+  for (var i = 0; i < passLength; i++) {
+    var random = passwordArray[Math.floor(Math.random() * passwordArray.length)];
+    password = password + random
 
+  }
+  return password
 }
-
-
-
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
-
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
-
 }
-
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
